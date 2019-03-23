@@ -18,14 +18,14 @@
           <img id="my-image" src="factorc-black-pathified2.png">
         </a-assets>
 
-        <a-marker id="animated-marker" type='barcode' value="6" smooth="true" smoothCount="10" smoothTolerance="0.01" smoothThreshold="5">
+        <a-anchor smooth="true" smoothCount="10" smoothTolerance="0.01" smoothThreshold="5" id="animated-marker" type='barcode' value="6">
             <!-- <a-entity
                 gltf-model="#animated-asset"
                 scale="2">
             </a-entity> -->
             <!-- Using the asset management system. -->
             <a-image src="#my-image" rotation="-90 0 0" scale="22 22 22"></a-image>
-        </a-marker>
+        </a-anchor>
 
         <!-- use this <a-entity camera> to support multiple-markers, otherwise use <a-marker-camera> instead of </a-marker> -->
         <a-entity camera wasd-controls></a-entity>
