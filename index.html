@@ -9,26 +9,26 @@
 
     <body style='margin : 0px; overflow: hidden;'>
         <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
-        <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false;'>
+        <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
 
         <!-- <a-assets>
             <a-asset-item id="animated-asset" src="https://raw.githubusercontent.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-playground/models/CesiumMan.gltf"></a-asset-item>
         </a-assets> -->
         <a-assets>
-          <img id="my-image" src="factorc-black-pathified_animated.svg">
+          <img id="my-image" src="factorc-black-pathified2.png">
         </a-assets>
 
-        <a-marker-camera id="animated-marker" type='pattern' url="pattern-marker2.patt">
+        <a-marker id="animated-marker" type='barcode' value="6">
             <!-- <a-entity
                 gltf-model="#animated-asset"
                 scale="2">
             </a-entity> -->
             <!-- Using the asset management system. -->
             <a-image src="#my-image" rotation="-90 0 0" scale="22 22 22"></a-image>
-        </a-marker-camera>
+        </a-marker>
 
         <!-- use this <a-entity camera> to support multiple-markers, otherwise use <a-marker-camera> instead of </a-marker> -->
-
+        <a-entity camera wasd-controls></a-entity>
         </a-scene>
     </body>
 </html>
