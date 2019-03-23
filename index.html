@@ -6,6 +6,43 @@
     <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
     <script src="lib/aframe-ar.min.js"></script>
     <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+    <script>
+        AFRAME.registerComponent("listener", {
+  init: function() {
+    this.target = document.querySelector('#factorc'); // your video
+    this.prevPosition = null; // initially there is no position or rotation
+    this.prevRotation = null;
+  },
+
+  tick: function() {
+    if (this.el.object3D.visible) {
+      this.target.setAttribute('visible', 'true')
+
+      if(!this.prevPosition && !this.prevRotation) { 
+        // there are no values to lerp from - set the initial values
+        this.target.setAttribute('position', this.el.getAttribute('position'))
+        this.target.setAttribute('rotation', this.el.getAttribute('rotation'))
+      } else {
+        // use the previous values to get an approximation 
+        this.target.object3D.position.lerp(this.prevPosition, 0.1)
+
+        // this (below) may seem ugly, but the rotation is a euler, not a THREE.Vector3, 
+        // so to use the lerp function i'm doing some probably unnecessary conversions
+        let rot = this.target.object3D.rotation.toVector3().lerp(this.prevRotation, 0.1)
+        this.target.object3D.rotation.setFromVector3(rot)
+      }
+      // update the values
+      this.prevPosition = this.el.object3D.position
+      this.prevRotation = this.el.object3D.rotation
+    } else {
+     // the marker dissapeared - reset the values
+     this.target.setAttribute('visible', 'false')
+     this.prevPosition = null;
+     this.prevRotation = null;
+   }
+  }
+})
+    </script>
 
     <body style='margin : 0px; overflow: hidden;'>
         <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
@@ -18,13 +55,13 @@
           <img id="my-image" src="factorc-black-pathified2.png">
         </a-assets>
 
-        <a-anchor smooth="true" smoothCount="10" smoothTolerance="0.01" smoothThreshold="5" id="animated-marker" type='barcode' value="6">
+        <a-anchor id="animated-marker" type='barcode' value="6">
             <!-- <a-entity
                 gltf-model="#animated-asset"
                 scale="2">
             </a-entity> -->
             <!-- Using the asset management system. -->
-            <a-image src="#my-image" rotation="-90 0 0" scale="22 22 22"></a-image>
+            <a-image id="factorc" src="#my-image" rotation="-90 0 0" scale="22 22 22"></a-image>
         </a-anchor>
 
         <!-- use this <a-entity camera> to support multiple-markers, otherwise use <a-marker-camera> instead of </a-marker> -->
