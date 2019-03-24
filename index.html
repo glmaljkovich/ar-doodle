@@ -7,33 +7,33 @@
     <script src="lib/aframe-ar.min.js"></script>
     <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
     <script>
- AFRAME.registerComponent("listener", {
-    init: function() {
-      this.target = document.querySelector('#factorc');
-      this.prevPosition = null;
-      this.prevRotation = null;
-    },
-   tick: function() {
-     if (this.el.object3D.visible) {
-       this.target.setAttribute('visible', 'true')
-       if(this.prevPosition) {
-         this.target.object3D.position.lerp(this.prevPosition, 0.1)
-         let rot = this.target.object3D.rotation.toVector3().lerp(this.prevRotation, 0.1)
-         this.target.object3D.rotation.setFromVector3(rot)
-       } else {
-         this.target.setAttribute('position', this.el.getAttribute('position'))
-         this.target.setAttribute('rotation', "-90 0 0")
-       }
-       this.prevPosition = this.el.object3D.position
-       this.prevRotation = this.el.object3D.rotation
-
-      } else {
-       this.target.setAttribute('visible', 'false')
-        this.prevPosition = null;
-        this.prevRotation = null;
-      }
-   }
- })
+ // AFRAME.registerComponent("listener", {
+ //    init: function() {
+ //      this.target = document.querySelector('#factorc');
+ //      this.prevPosition = null;
+ //      this.prevRotation = null;
+ //    },
+ //   tick: function() {
+ //     if (this.el.object3D.visible) {
+ //       this.target.setAttribute('visible', 'true')
+ //       if(this.prevPosition) {
+ //         this.target.object3D.position.lerp(this.prevPosition, 0.1)
+ //         let rot = this.target.object3D.rotation.toVector3().lerp(this.prevRotation, 0.1)
+ //         this.target.object3D.rotation.setFromVector3(rot)
+ //       } else {
+ //         this.target.setAttribute('position', this.el.getAttribute('position'))
+ //         this.target.setAttribute('rotation', "-90 0 0")
+ //       }
+ //       this.prevPosition = this.el.object3D.position
+ //       this.prevRotation = this.el.object3D.rotation
+ //
+ //      } else {
+ //       this.target.setAttribute('visible', 'false')
+ //        this.prevPosition = null;
+ //        this.prevRotation = null;
+ //      }
+ //   }
+ // })
     </script>
 
     <body style='margin : 0px; overflow: hidden;'>
@@ -47,7 +47,7 @@
           <img id="my-image" src="factorc-black-pathified2.png">
         </a-assets>
 
-        <a-anchor id="animated-marker" type='barcode' value="6" listener>
+        <a-anchor id="animated-marker" type='barcode' value="6" smooth="true">
             <!-- <a-entity
                 gltf-model="#animated-asset"
                 scale="2">
