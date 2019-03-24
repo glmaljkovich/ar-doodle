@@ -12,8 +12,13 @@
         <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
         <a-assets>
           <img id="my-image" src="factorc-black-pathified2.png">
+          <video id="animated" autoplay loop="true" src="animated.webm"></video>
         </a-assets>
 
+        <a-anchor type='barcode' value="7" smooth="true">
+            <!-- Using the asset management system. -->
+            <a-video src="animated" scale="15 15 15" rotation="-90 0 0"></a-video>
+        </a-anchor>
         <a-anchor id="animated-marker" type='barcode' value="6" smooth="true">
             <!-- Using the asset management system. -->
             <a-image id="factorc" src="#my-image" scale="15 15 15" rotation="-90 0 0"></a-image>
